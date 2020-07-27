@@ -7,11 +7,22 @@ with open('gcode.gcode') as fp:
     while line:
         
         if prev_line.startswith('S'):
-            x = float(prev_prev_line[4:10])
-            y = float(prev_prev_line[12:17])
-            x_offset = float(line[4:10]) - x
-            y_offset = float(line[12:17]) - y
-            f = line[18:22]
+            x_index = prev_prev_line.index('X') + 1
+            y_index = prev_prev_line.index('Y') + 1
+            x = float(prev_prev_line[x_index:(x_index+6)])
+            y = float(prev_prev_line[y_index:(y_index+6)])
+            
+            x_index_next = line.index('X') + 1
+            y_index_next = line.index('Y') + 1
+            x_next = float(line[x_index_next:(x_index_next+6)])
+            y_next = float(line[y_index_next:(y_index_next+6)])
+            
+            x_offset = x_next - x
+            y_offset = y_next - y
+            
+            f_index = line.index('F')
+            f = line[f_index:(f_index+4)]
+            
             x_new = 0.0
             y_new = 0.0
             
