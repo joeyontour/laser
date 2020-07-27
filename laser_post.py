@@ -38,9 +38,9 @@ with open('gcode.gcode') as fp:
                 y_new = y + step
             else:
                 y_new = y - step   
-            fout.write('G1 X' + '%.2f' % x + ' Y' + '%.2f' % y + ' ' + prev_line)
-            fout.write('G1 X' + '%.2f' % x_new + ' Y' + '%.2f' % y_new + ' ' + f + '\n')
-            fout.write('G1 X' + '%.2f' % x + ' Y' + '%.2f' % y + '\n')
+            fout.write('G1 X' + '%.2f' % x + ' Y' + '%.2f' % y + ' ' + prev_line[:-1] + ' F100\n')
+            fout.write('G1 X' + '%.2f' % x_new + ' Y' + '%.2f' % y_new + '\n')
+            fout.write('G1 X' + '%.2f' % x + ' Y' + '%.2f' % y + ' ' + f + '\n')
         else:
             if not line.startswith('S'):
                 fout.write(line)
