@@ -9,19 +9,21 @@ with open('gcode.gcode') as fp:
         if prev_line.startswith('S'):
             x_index = prev_prev_line.index('X') + 1
             y_index = prev_prev_line.index('Y') + 1
-            x = float(prev_prev_line[x_index:(x_index+6)])
-            y = float(prev_prev_line[y_index:(y_index+6)])
+            x = float(prev_prev_line[x_index:(y_index - 1)])
+            y = float(prev_prev_line[y_index:])
+            
+            f_index = line.index('F')
+            f = line[f_index:-1]
             
             x_index_next = line.index('X') + 1
             y_index_next = line.index('Y') + 1
-            x_next = float(line[x_index_next:(x_index_next+6)])
-            y_next = float(line[y_index_next:(y_index_next+6)])
+            x_next = float(line[x_index_next:(y_index -1)])
+            y_next = float(line[y_index_next:(f_index -1)])
             
             x_offset = x_next - x
             y_offset = y_next - y
             
-            f_index = line.index('F')
-            f = line[f_index:(f_index+4)]
+           
             
             x_new = 0.0
             y_new = 0.0
